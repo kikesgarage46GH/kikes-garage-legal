@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Viaje en vivo -- Kike's Garage</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, Segoe UI, Roboto, sans-serif; }
+  body { background: #0a0a0a; color: #fff; height: 100vh; display: flex; flex-direction: column; }
+  #header { padding: 14px 18px; background: #111; border-bottom: 1px solid #222; display: flex; align-items: center; gap: 10px; }
+  #header .estrella { color: #6EE7A0; font-size: 18px; }
+  #header .titulo { font-weight: 800; font-size: 15px; }
+  #header .sub { font-size: 11px; color: #999; margin-top: 2px; }
+  #map { flex: 1; }
+  #estado {
+    padding: 12px 18px; background: #111; border-top: 1px solid #222;
+    font-size: 12px; color: #aaa; text-align: center;
+  }
+  #estado.vivo { color: #6EE7A0; }
+  #estado.finalizado, #estado.error { color: #E86A6A; }
+  #overlay {
+    position: fixed; inset: 0; background: #0a0a0a; display: flex;
+    flex-direction: column; align-items: center; justify-content: center;
+    gap: 14px; z-index: 999; text-align: center; padding: 24px;
+  }
+  #overlay .emoji { font-size: 42px; }
+  #overlay .msg { font-size: 14px; color: #ccc; max-width: 300px; }
+</style>
+</head>
+<body>
+
+<div id="header">
+  <span class="estrella">⭐</span>
+  <div>
+    <div class="titulo" id="nombreCliente">Viaje en vivo</div>
+    <div class="sub">Kike's Garage</div>
+  </div>
+</div>
+
+<div id="map"></div>
+<div id="estado">Cargando...</div>
+
+<div id="overlay" style="display:none;">
+  <div class="emoji" id="overlayEmoji">📍</div>
+  <div class="msg" id="overlayMsg">Cargando viaje...</div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+  // OJO: reemplazar estos dos valores por los reales del proyecto antes
+  // de subir este archivo -- son públicos por diseño (misma anon key que
+  // ya usa la app), no hace falta ocultarlos.
+  const SUPABASE_URL = 'https://toowioyubjlryotghnng.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRvb3dpb3l1YmpscnlvdGdobm5nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3MjM3NDcsImV4cCI6MjA5OTI5OTc0N30.7SyeluGccT16_6pKlgnbHQRl_feZ9ptRJ3oI0jLALAw';
+
+  const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get('token');
+
+  const overlay = document.getElementById('overlay');
+  const overlayEmoji = document.getElementById('overlayEmoji');
+  const overlayMsg = document.getElementById('overlayMsg');
+  const estadoEl = document.getElementById('estado');
+  const nombreEl = document.getElementById('nombreCliente');
+
+  function mostrarOverlay(emoji, msg) {
+    overlayEmoji.textContent = emoji;
+    overlayMsg.textContent = msg;
+    overlay.style.display = 'flex';
+  }
+
+  if (!token) {
+    mostrarOverlay('⚠️', 'Este link no es válido.');
+  } else {
+    let map, marker;
+    let primeraCarga = true;
+
+    function initMap(lat, lng) {
+      map = L.map('map').setView([lat, lng], 15);
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap',
+      }).addTo(map);
+      marker = L.marker([lat, lng]).addTo(map);
+    }
+
+    function actualizarMapa(lat, lng) {
+      if (!map) { initMap(lat, lng); return; }
+      marker.setLatLng([lat, lng]);
+      map.panTo([lat, lng]);
+    }
+
+    function tiempoRelativo(fechaIso) {
+      const seg = Math.floor((Date.now() - new Date(fechaIso).getTime()) / 1000);
+      if (seg < 60) return 'hace instantes';
+      if (seg < 3600) return `hace ${Math.floor(seg / 60)} min`;
+      return `hace ${Math.floor(seg / 3600)}h`;
+    }
+
+    async function consultar() {
+      const { data, error } = await client.rpc('get_viaje_compartido', { p_token: token });
+      if (error || !data || data.length === 0) {
+        mostrarOverlay('⚠️', 'No se encontró este viaje. El link puede haber expirado o ser incorrecto.');
+        clearInterval(intervalo);
+        return;
+      }
+      const v = data[0];
+      const expiro = new Date(v.expira_en).getTime() < Date.now();
+
+      if (v.nombre_cliente) nombreEl.textContent = `${v.nombre_cliente} está compartiendo su viaje`;
+
+      if (!v.activo || expiro) {
+        estadoEl.textContent = 'Este viaje ya finalizó.';
+        estadoEl.className = 'finalizado';
+        clearInterval(intervalo);
+        if (primeraCarga) mostrarOverlay('🏁', 'Este viaje ya finalizó.');
+        return;
+      }
+
+      if (v.lat == null || v.lng == null) {
+        estadoEl.textContent = 'Esperando la primera ubicación...';
+        return;
+      }
+
+      overlay.style.display = 'none';
+      actualizarMapa(v.lat, v.lng);
+      estadoEl.textContent = `En vivo · actualizado ${tiempoRelativo(v.actualizado_en)}`;
+      estadoEl.className = 'vivo';
+      primeraCarga = false;
+    }
+
+    mostrarOverlay('📍', 'Cargando viaje...');
+    consultar();
+    const intervalo = setInterval(consultar, 8000);
+  }
+</script>
+</body>
+</html>
