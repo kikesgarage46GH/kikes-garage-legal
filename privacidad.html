@@ -15,47 +15,65 @@
 <body>
 
 <h1>Política de Privacidad de Kike's Garage</h1>
-<p class="fecha">Última actualización: septiembre de 2026</p>
+<p class="fecha">Última actualización: octubre de 2026</p>
 
-<p>Kike's Garage ("la app") es una aplicación para clientes de un taller mecánico de motos, que permite gestionar el service de tu moto, documentos, viajes y beneficios por kilómetros recorridos. Esta política explica qué información recopilamos y cómo la usamos.</p>
+<p>Kike's Garage ("la app") es una aplicación para motociclistas y clientes de un taller mecánico de motos, que permite gestionar el service de tu moto, documentos, viajes, remolques y beneficios por kilómetros recorridos. Esta política explica qué información recopilamos, para qué la usamos y con quién la compartimos.</p>
 
 <h2>1. Información que recopilamos</h2>
 <ul>
   <li><strong>Datos de cuenta:</strong> nombre, correo electrónico y número de teléfono, usados para crear tu cuenta e identificarte.</li>
   <li><strong>Datos de tu moto:</strong> marca, modelo, patente, kilometraje y fotos que vos cargues.</li>
-  <li><strong>Documentos:</strong> fechas de vencimiento que vos cargues (seguro, VTV, etc.) para recordarte cuándo renovarlos.</li>
-  <li><strong>Ubicación (GPS):</strong> usada únicamente durante un viaje que vos inicies o que la app detecte automáticamente, para calcular distancia recorrida, velocidad y ruta. No se recolecta ubicación fuera de un viaje activo.</li>
-  <li><strong>Sensores del movimiento (acelerómetro):</strong> usados durante un viaje para estimar fuerza G e inclinación aproximada; no se comparte ni identifica a terceros con esta información.</li>
-  <li><strong>Fotos y videos:</strong> los que subas voluntariamente (de tu moto, de un viaje, o de un trabajo del taller).</li>
-  <li><strong>Token de notificaciones push:</strong> un identificador técnico del dispositivo, usado solo para poder enviarte avisos (turnos, vencimientos, novedades del taller).</li>
+  <li><strong>Documentos:</strong> los documentos y fechas de vencimiento que vos cargues (seguro, VTV, licencia, cédula, etc.) para recordarte cuándo renovarlos. Las fotos y archivos de documentos se guardan en un almacenamiento privado: solo los ves vos y el taller.</li>
+  <li><strong>Ubicación durante los viajes (GPS):</strong> mientras se registra un viaje, que inicies vos o que la app detecte automáticamente, la app usa tu ubicación precisa para calcular distancia, duración, velocidad y el recorrido, aunque la app esté cerrada o la pantalla apagada.</li>
+  <li><strong>Detección automática de viajes (ubicación en segundo plano):</strong> si la activás, la app guarda la ubicación de tu casa (o del lugar donde guardás la moto) y del último lugar donde la dejaste, y le pide al sistema del teléfono que le avise cuando salís de esas zonas, aunque la app esté cerrada. Fuera de un viaje, la app no registra tu recorrido. Podés desactivar la detección cuando quieras desde la app o desde los permisos del teléfono.</li>
+  <li><strong>Recorridos estimados:</strong> si el teléfono avisa tarde la salida y una parte del viaje no se grabó, la app completa ese tramo con un viaje tuyo anterior entre los mismos lugares o calculándolo por calles. Ese tramo se muestra como "Recorrido estimado".</li>
+  <li><strong>Sensores de movimiento (acelerómetro):</strong> usados durante un viaje para estimar fuerza G e inclinación aproximada.</li>
+  <li><strong>Verificación de identidad:</strong> para pedir un remolque te pedimos, una sola vez, fotos de tu DNI (frente y dorso) y una selfie con el DNI. La app también lee los datos del código del DNI (número, nombre, apellido, sexo, fecha de nacimiento y datos del trámite). Se usan solo para confirmar tu identidad y prevenir fraudes, se guardan en un almacenamiento privado y solo los revisa el taller.</li>
+  <li><strong>Remolques:</strong> cuando pedís un remolque, guardamos el lugar donde estás, el destino, los datos de la moto, los mensajes con el remolcador y la calificación que dejes.</li>
+  <li><strong>Prestadores (remolcadores y otros colaboradores):</strong> si ofrecés un servicio en la app, guardamos los datos y documentos que nos pidas presentar (identidad, vehículo, patente, habilitaciones) y, mientras estás disponible o en un servicio, tu ubicación.</li>
+  <li><strong>Fotos y videos:</strong> los que subas voluntariamente (de tu moto, de un viaje, de tu perfil o de un trabajo del taller).</li>
+  <li><strong>Token de notificaciones push:</strong> un identificador técnico del dispositivo, usado solo para poder enviarte avisos.</li>
+  <li><strong>Datos técnicos de la detección:</strong> si reportás un problema con la detección de viajes, el taller puede activar, solo para tu cuenta y por un tiempo, un registro técnico de lo que hace la app (eventos de la detección), para encontrar la falla.</li>
 </ul>
 
 <h2>2. Cómo usamos tu información</h2>
-<p>Usamos estos datos exclusivamente para brindarte el servicio de la app: mostrar tu historial de service, calcular tus beneficios por kilómetros, avisarte vencimientos próximos, y permitirle al taller identificarte cuando llevás tu moto a un service.</p>
+<p>Usamos estos datos exclusivamente para brindarte el servicio de la app: registrar tus viajes y sumar los kilómetros a tu moto, mostrar tu historial de service, calcular tus beneficios, avisarte vencimientos y turnos, coordinar remolques, y permitirle al taller identificarte cuando llevás tu moto.</p>
 
 <h2>3. Con quién compartimos información</h2>
 <p>No vendemos ni compartimos tu información con terceros para fines de publicidad. Usamos los siguientes proveedores para el funcionamiento técnico de la app:</p>
 <ul>
-  <li><strong>Supabase:</strong> almacena la base de datos de la app (cuentas, motos, viajes, documentos).</li>
+  <li><strong>Supabase:</strong> almacena la base de datos y los archivos de la app (cuentas, motos, viajes, documentos, fotos).</li>
   <li><strong>Firebase (Google):</strong> usado exclusivamente para enviar notificaciones push a tu dispositivo.</li>
+  <li><strong>Google Maps Platform:</strong> mapas y cálculo de rutas y tiempos de llegada en los remolques. Se le envían las ubicaciones necesarias para calcular la ruta.</li>
+  <li><strong>OpenRouteService:</strong> cálculo por calles de los tramos de un viaje que no se grabaron. Se le envían solo el punto de inicio y el de llegada del tramo, sin tu nombre ni otros datos.</li>
+  <li><strong>OpenStreetMap:</strong> las imágenes de los mapas de viajes se descargan de sus servidores; como cualquier sitio web, reciben la dirección de internet del teléfono.</li>
+</ul>
+<p>Además, dentro de la app:</p>
+<ul>
+  <li><strong>Remolques:</strong> el remolcador asignado ve tu nombre, la ubicación donde estás, el destino y los datos de la moto. Vos ves el nombre, la foto, el vehículo, la patente y la ubicación en vivo del remolcador mientras viene.</li>
+  <li><strong>Compartir viaje en vivo:</strong> si lo activás, quien tenga el enlace puede ver tu ubicación y tu recorrido mientras dura el viaje.</li>
+  <li><strong>Comunidad:</strong> lo que publiques ahí (fotos y texto que elijas) lo ven otros usuarios de la app.</li>
 </ul>
 
-<h2>4. Contenido visible para otros usuarios</h2>
-<p>Si publicás contenido en la sección de Comunidad de la app, ese contenido (fotos y texto que vos elijas compartir) es visible para otros clientes de la app. El resto de tu información (datos de cuenta, documentos, ubicación) es privada y solo la ve el taller.</p>
+<h2>4. El taller</h2>
+<p>El personal del taller (administradores) ve los datos de tu cuenta, tus motos, viajes, documentos, verificaciones y remolques, para darte el servicio. Cuando un administrador resuelve un aviso desde la app, se registra quién fue, cuándo, desde qué dispositivo y su ubicación aproximada, como control interno.</p>
 
-<h2>5. Tus derechos</h2>
-<p>Podés dar de baja tu cuenta en cualquier momento desde la app (Perfil → Configuración). Al hacerlo, tu acceso queda desactivado. Si querés solicitar la eliminación completa de tus datos, escribinos al correo de contacto abajo.</p>
+<h2>5. Cuánto tiempo guardamos tus datos</h2>
+<p>Guardamos tus datos mientras tengas la cuenta. Los registros técnicos de la detección se borran cuando se resuelve el problema. Si eliminás tu cuenta, borramos tus datos, salvo los que debamos conservar por obligaciones legales o para resolver un reclamo pendiente (por ejemplo, el comprobante de un remolque).</p>
 
-<h2>6. Seguridad</h2>
-<p>La app se conecta a sus servidores usando conexiones encriptadas estándar (HTTPS/TLS). No accedemos a tu ubicación ni a tus fotos sin tu permiso explícito, otorgado a través de los permisos del sistema operativo.</p>
+<h2>6. Tus derechos</h2>
+<p>Podés eliminar tu cuenta en cualquier momento desde la app ([ruta exacta en la app]). También podés pedir acceso, corrección o eliminación de tus datos escribiendo al correo de contacto de abajo. Podés quitar los permisos de ubicación, cámara o fotos desde la configuración del teléfono cuando quieras; algunas funciones dejarán de estar disponibles.</p>
 
-<h2>7. Menores de edad</h2>
-<p>Esta app no está dirigida a menores de 13 años y no recopilamos intencionalmente información de menores de esa edad.</p>
+<h2>7. Seguridad</h2>
+<p>La app se conecta a sus servidores usando conexiones encriptadas estándar (HTTPS/TLS). Los documentos y las fotos de verificación se guardan en un almacenamiento privado, al que se accede con enlaces temporales. No accedemos a tu ubicación, cámara ni fotos sin tu permiso explícito, otorgado a través de los permisos del sistema operativo.</p>
 
-<h2>8. Cambios a esta política</h2>
+<h2>8. Menores de edad</h2>
+<p>Esta app no está dirigida a menores de 13 años y no recopilamos intencionalmente información de menores de esa edad. Para pedir remolques hay que ser mayor de 18 años.</p>
+
+<h2>9. Cambios a esta política</h2>
 <p>Podemos actualizar esta política ocasionalmente. Si hacemos cambios importantes, te lo notificaremos dentro de la app.</p>
 
-<h2>9. Contacto</h2>
+<h2>10. Contacto</h2>
 <p>Si tenés preguntas sobre esta política o tus datos, escribinos a: <strong>kikesgarage46@gmail.com</strong></p>
 
 </body>
