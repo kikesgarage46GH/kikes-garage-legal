@@ -25,12 +25,15 @@
   <li><strong>Datos de tu moto:</strong> marca, modelo, patente, kilometraje y fotos que vos cargues.</li>
   <li><strong>Documentos:</strong> los documentos y fechas de vencimiento que vos cargues (seguro, VTV, licencia, cédula, etc.) para recordarte cuándo renovarlos. Las fotos y archivos de documentos se guardan en un almacenamiento privado: solo los ves vos y el taller.</li>
   <li><strong>Ubicación durante los viajes (GPS):</strong> mientras se registra un viaje, que inicies vos o que la app detecte automáticamente, la app usa tu ubicación precisa para calcular distancia, duración, velocidad y el recorrido, aunque la app esté cerrada o la pantalla apagada.</li>
-  <li><strong>Detección automática de viajes (ubicación en segundo plano):</strong> si la activás, la app guarda la ubicación de tu casa (o del lugar donde guardás la moto) y del último lugar donde la dejaste, y le pide al sistema del teléfono que le avise cuando salís de esas zonas, aunque la app esté cerrada. Fuera de un viaje, la app no registra tu recorrido. Podés desactivar la detección cuando quieras desde la app o desde los permisos del teléfono.</li>
+  <li><strong>Detección automática de viajes (ubicación en segundo plano):</strong> si la activás, la app guarda la ubicación de tu casa (o del lugar donde guardás la moto) y del último lugar donde la dejaste, y le pide al sistema del teléfono que le avise cuando salís de esas zonas, aunque la app esté cerrada. Fuera de un viaje, la app no registra tu recorrido. Podés desactivar la detección cuando quieras desde Perfil o desde los permisos del teléfono.</li>
+  <li><strong>Aprendizaje de la ubicación de tu casa:</strong> si elegís que la app aprenda dónde está tu casa en vez de marcarla a mano, cada vez que abrís la app guardamos una ubicación aproximada. Con unos días de muestras, te proponemos el lugar donde más estás de noche y vos confirmás si es tu casa. Si decís que no, las muestras se borran. Podés marcarla o corregirla a mano desde Perfil en cualquier momento.</li>
   <li><strong>Recorridos estimados:</strong> si el teléfono avisa tarde la salida y una parte del viaje no se grabó, la app completa ese tramo con un viaje tuyo anterior entre los mismos lugares o calculándolo por calles. Ese tramo se muestra como "Recorrido estimado".</li>
   <li><strong>Sensores de movimiento (acelerómetro):</strong> usados durante un viaje para estimar fuerza G e inclinación aproximada.</li>
   <li><strong>Verificación de identidad:</strong> para pedir un remolque te pedimos, una sola vez, fotos de tu DNI (frente y dorso) y una selfie con el DNI. La app también lee los datos del código del DNI (número, nombre, apellido, sexo, fecha de nacimiento y datos del trámite). Se usan solo para confirmar tu identidad y prevenir fraudes, se guardan en un almacenamiento privado y solo los revisa el taller.</li>
   <li><strong>Remolques:</strong> cuando pedís un remolque, guardamos el lugar donde estás, el destino, los datos de la moto, los mensajes con el remolcador y la calificación que dejes.</li>
-  <li><strong>Prestadores (remolcadores y otros colaboradores):</strong> si ofrecés un servicio en la app, guardamos los datos y documentos que nos pidas presentar (identidad, vehículo, patente, habilitaciones) y, mientras estás disponible o en un servicio, tu ubicación.</li>
+  <li><strong>Prestadores (remolcadores y otros colaboradores):</strong> si ofrecés un servicio en la app, guardamos los datos y documentos que te pidamos presentar (identidad, vehículo, patente, habilitaciones). Mientras tengas activado "Disponible", el sistema usa tu ubicación para asignarte pedidos cercanos; los clientes no la ven. Solo cuando aceptás un pedido, el cliente que lo pidió ve tu ubicación hasta que termina el servicio.</li>
+  <li><strong>Contactos de emergencia:</strong> si configurás la alarma de accidente, guardamos el nombre y el teléfono de las personas que elijas de tu agenda (la app no accede al resto de tus contactos). Solo se usan para mandarles un aviso por SMS con tu nombre, tu moto y tu ubicación si tenés un accidente durante un viaje o si mandás el aviso a mano.</li>
+  <li><strong>Alarma de emergencia:</strong> cuando se dispara, guardamos el momento, si fue automática o a mano, tu ubicación y a qué contactos se avisó. El SMS incluye un enlace para ver tu ubicación en vivo por un tiempo limitado (si no estabas compartiendo el viaje, hasta 4 horas); podés dejar de compartirla desde la app cuando quieras. Si en ese momento no hay internet, la app guarda el aviso y lo reintenta, y te ofrece mandar el SMS desde tu propio teléfono (en ese caso sale con tu línea, como cualquier mensaje tuyo).</li>
   <li><strong>Fotos y videos:</strong> los que subas voluntariamente (de tu moto, de un viaje, de tu perfil o de un trabajo del taller).</li>
   <li><strong>Token de notificaciones push:</strong> un identificador técnico del dispositivo, usado solo para poder enviarte avisos.</li>
   <li><strong>Datos técnicos de la detección:</strong> si reportás un problema con la detección de viajes, el taller puede activar, solo para tu cuenta y por un tiempo, un registro técnico de lo que hace la app (eventos de la detección), para encontrar la falla.</li>
@@ -46,34 +49,41 @@
   <li><strong>Firebase (Google):</strong> usado exclusivamente para enviar notificaciones push a tu dispositivo.</li>
   <li><strong>Google Maps Platform:</strong> mapas y cálculo de rutas y tiempos de llegada en los remolques. Se le envían las ubicaciones necesarias para calcular la ruta.</li>
   <li><strong>OpenRouteService:</strong> cálculo por calles de los tramos de un viaje que no se grabaron. Se le envían solo el punto de inicio y el de llegada del tramo, sin tu nombre ni otros datos.</li>
+  <li><strong>Twilio:</strong> envío de los SMS de la alarma de accidente a tus contactos de emergencia.</li>
   <li><strong>OpenStreetMap:</strong> las imágenes de los mapas de viajes se descargan de sus servidores; como cualquier sitio web, reciben la dirección de internet del teléfono.</li>
 </ul>
 <p>Además, dentro de la app:</p>
 <ul>
   <li><strong>Remolques:</strong> el remolcador asignado ve tu nombre, la ubicación donde estás, el destino y los datos de la moto. Vos ves el nombre, la foto, el vehículo, la patente y la ubicación en vivo del remolcador mientras viene.</li>
   <li><strong>Compartir viaje en vivo:</strong> si lo activás, quien tenga el enlace puede ver tu ubicación y tu recorrido mientras dura el viaje.</li>
+  <li><strong>Alarma de emergencia:</strong> tus contactos de emergencia reciben tu nombre, tu moto, tu ubicación y el enlace para seguirla en vivo (ver punto 1). El taller también recibe el aviso, para poder asistirte.</li>
   <li><strong>Comunidad:</strong> lo que publiques ahí (fotos y texto que elijas) lo ven otros usuarios de la app.</li>
 </ul>
 
 <h2>4. El taller</h2>
-<p>El personal del taller (administradores) ve los datos de tu cuenta, tus motos, viajes, documentos, verificaciones y remolques, para darte el servicio. Cuando un administrador resuelve un aviso desde la app, se registra quién fue, cuándo, desde qué dispositivo y su ubicación aproximada, como control interno.</p>
+<p>El personal del taller (administradores) ve los datos de tu cuenta, tus motos, viajes, documentos, verificaciones, remolques y las alarmas de emergencia (con tu ubicación y la ubicación en vivo mientras la compartas), para darte el servicio. Cuando un administrador resuelve un aviso desde la app, se registra quién fue, cuándo, desde qué dispositivo y su ubicación aproximada, como control interno.</p>
 
 <h2>5. Cuánto tiempo guardamos tus datos</h2>
-<p>Guardamos tus datos mientras tengas la cuenta. Los registros técnicos de la detección se borran cuando se resuelve el problema. Si eliminás tu cuenta, borramos tus datos, salvo los que debamos conservar por obligaciones legales o para resolver un reclamo pendiente (por ejemplo, el comprobante de un remolque).</p>
+<p>Guardamos tus datos mientras tengas la cuenta. Los registros técnicos de la detección se borran cuando se resuelve el problema.</p>
 
-<h2>6. Tus derechos</h2>
-<p>Podés eliminar tu cuenta en cualquier momento desde la app ([ruta exacta en la app]). También podés pedir acceso, corrección o eliminación de tus datos escribiendo al correo de contacto de abajo. Podés quitar los permisos de ubicación, cámara o fotos desde la configuración del teléfono cuando quieras; algunas funciones dejarán de estar disponibles.</p>
+<h2>6. Eliminar tu cuenta y tus datos</h2>
+<p>Podés eliminar tu cuenta en cualquier momento desde la app: <strong>Perfil → Zona de riesgo → Eliminar cuenta</strong>. La cuenta se desactiva en ese momento y no se puede volver a entrar. A los <strong>60 días</strong> se borran definitivamente tus datos personales: datos de la cuenta, fotos, documentos, viajes, verificación de identidad, ubicaciones y contactos de emergencia. Durante esos 60 días podés pedirnos recuperar la cuenta.</p>
+<p>Si no tenés la app instalada o no podés entrar, pedí la eliminación escribiendo a <strong>kikesgarage46@gmail.com</strong> desde el correo de tu cuenta, con el asunto "Eliminar mi cuenta". La procesamos de la misma forma.</p>
+<p>Se conservan, sin tus datos personales, solo los registros que el taller deba guardar por obligaciones legales o contables (por ejemplo, el comprobante de un servicio o de un remolque cobrado).</p>
 
-<h2>7. Seguridad</h2>
+<h2>7. Tus derechos</h2>
+<p>Podés pedir acceso o corrección de tus datos escribiendo al correo de contacto de abajo. Podés quitar los permisos de ubicación, cámara o fotos desde la configuración del teléfono cuando quieras; algunas funciones dejarán de estar disponibles.</p>
+
+<h2>8. Seguridad</h2>
 <p>La app se conecta a sus servidores usando conexiones encriptadas estándar (HTTPS/TLS). Los documentos y las fotos de verificación se guardan en un almacenamiento privado, al que se accede con enlaces temporales. No accedemos a tu ubicación, cámara ni fotos sin tu permiso explícito, otorgado a través de los permisos del sistema operativo.</p>
 
-<h2>8. Menores de edad</h2>
+<h2>9. Menores de edad</h2>
 <p>Esta app no está dirigida a menores de 13 años y no recopilamos intencionalmente información de menores de esa edad. Para pedir remolques hay que ser mayor de 18 años.</p>
 
-<h2>9. Cambios a esta política</h2>
+<h2>10. Cambios a esta política</h2>
 <p>Podemos actualizar esta política ocasionalmente. Si hacemos cambios importantes, te lo notificaremos dentro de la app.</p>
 
-<h2>10. Contacto</h2>
+<h2>11. Contacto</h2>
 <p>Si tenés preguntas sobre esta política o tus datos, escribinos a: <strong>kikesgarage46@gmail.com</strong></p>
 
 </body>
